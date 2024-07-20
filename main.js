@@ -10,6 +10,7 @@ import {
   createCheckout,
   createDetails,
   createSpan,
+  createCart,
 } from './js/elements';
 
 
@@ -35,16 +36,20 @@ function Box(product) {
   }
 
   function createSectionSecond(product) {
+
     const section = document.createElement('section');
     section.className = 'child second';
+
+    const cart = createCart();
 
     const titleandPercent = createTitleAndPercent(product);
     const availability = createAvailability();
     const price = createPrice(product);
     const about = createAbout();
-    const checkout = createCheckout();
+    const checkout = createCheckout(product);
     const details = createDetails();
 
+    section.appendChild(cart);
     section.appendChild(titleandPercent);
     section.appendChild(availability);
     section.appendChild(price);
@@ -78,7 +83,6 @@ function createSwiper(containerSelector, products) {
     const swiperSlide = document.createElement('div');
     swiperSlide.className = 'swiper-slide';
 
-
     const containerBox = Box(product);
 
     swiperSlide.appendChild(containerBox);
@@ -107,13 +111,14 @@ function createSwiper(containerSelector, products) {
   scrollbar.className = 'swiper-scrollbar';
   swiperContainer.appendChild(scrollbar);
 
-
   const container = document.querySelector(containerSelector);
   container.innerHTML = '';
   container.appendChild(swiperContainer);
 
 
   const swiper = new Swiper('.swiper', {
+    centeredSlides: true,
+    spaceBetween: 20,
     direction: 'horizontal',
     loop: true,
     pagination: {

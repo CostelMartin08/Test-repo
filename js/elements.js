@@ -1,3 +1,16 @@
+export function createCart() {
+
+    const container = document.createElement('div');
+    const cart = document.createElement('span');
+    cart.className = 'cart'
+    cart.innerHTML = '<i class="fa-solid fa-cart-shopping"></i>'
+
+
+    container.appendChild(cart);
+
+    return container;
+
+}
 
 export function createTitleAndPercent(product) {
 
@@ -79,7 +92,8 @@ export function createAbout() {
 }
 
 
-export function createCheckout() {
+export function createCheckout(product) {
+
     const checkout = document.createElement('section');
     checkout.className = 'checkout';
 
@@ -93,6 +107,7 @@ export function createCheckout() {
     const quantity = document.createElement('p');
     quantity.textContent = '1';
     quantity.id = 'quantity';
+    quantity.className = 'quantity';
 
     const increment = document.createElement('span');
     increment.textContent = '+';
@@ -105,56 +120,95 @@ export function createCheckout() {
     const button = document.createElement('button');
     button.className = 'button';
     button.innerHTML = '<i class="fa-solid fa-cart-shopping"></i> Προσθήκη στο καλάθι';
+    button.setAttribute('data-product-name', product.name);
+    button.addEventListener('click', addToCart);
 
     checkout.appendChild(count);
     checkout.appendChild(button);
 
-    return checkout;
-}
 
 
-export function createDetails() {
-    const details = document.createElement('section');
-    details.className = 'details';
+    function updateQuantity(change) {
+        const currentQuantity = parseInt(quantity.textContent);
+        const newQuantity = currentQuantity + change;
+        if (newQuantity > 0) {
+            quantity.textContent = newQuantity;
+        }
+    }
 
-    const items = [
-        { label: 'Κατηγορία Ποτού:', value: 'RTDs, Έτοιμο cocktail' },
-        { label: 'Χώρα Προέλευσης:', value: 'Ιταλία' },
-        { label: 'Μέγεθος Φιάλης:', value: '200ml' },
-        { label: 'Αλκοόλ:', value: '3%' }
-    ];
+        return checkout;
+    }
 
-    items.forEach(item => {
-        const detailItem = document.createElement('div');
-        detailItem.className = 'details-item';
+    export function createDetails() {
 
-        const label = document.createElement('p');
-        label.textContent = item.label;
+        const details = document.createElement('section');
+        details.className = 'details';
 
-        const value = document.createElement('p');
-        value.textContent = item.value;
+        const items = [
+            { label: 'Κατηγορία Ποτού:', value: 'RTDs, Έτοιμο cocktail' },
+            { label: 'Χώρα Προέλευσης:', value: 'Ιταλία' },
+            { label: 'Μέγεθος Φιάλης:', value: '200ml' },
+            { label: 'Αλκοόλ:', value: '3%' }
+        ];
 
-        detailItem.appendChild(label);
-        detailItem.appendChild(value);
-        details.appendChild(detailItem);
-    });
+        items.forEach(item => {
+            const detailItem = document.createElement('div');
+            detailItem.className = 'details-item';
 
-    return details;
-}
+            const label = document.createElement('p');
+            label.textContent = item.label;
 
-export function createSpan(text, className) {
-    const span = document.createElement('span');
-    span.className = className;
-    span.textContent = text;
-    return span;
-}
+            const value = document.createElement('p');
+            value.textContent = item.value;
+
+            detailItem.appendChild(label);
+            detailItem.appendChild(value);
+            details.appendChild(detailItem);
+        });
+
+        return details;
+    }
+
+    export function createSpan(text, className) {
+        const span = document.createElement('span');
+        span.className = className;
+        span.textContent = text;
+        return span;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /*                              functi de ajutor                              */
+    /* -------------------------------------------------------------------------- */
+
+    let cart = {
+        items: [],
+        addItem(productName, quantity) {
+            // se adaunga in cos sau se actualizeaza daca exista deja
+            const existingItem = this.items.find(item => item.name === productName);
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                this.items.push({ name: productName, quantity });
+            }
+            console.log(`Cart items: ${cart}`);
+        }
+    };
 
 
-export function updateQuantity(change) {
-    const quantityElement = document.querySelector('#quantity');
+    function addToCart(event) {
 
-    let quantity = parseInt(quantityElement.textContent, 10);
-    
-    quantity = Math.max(1, quantity + change);
-    quantityElement.textContent = quantity;
-}
+        const button = event.currentTarget;
+
+        const productName = button.getAttribute('data-product-name');
+
+        const quantityElement = button.previousElementSibling.querySelector('.quantity');
+        const quantityValue = parseInt(quantityElement.textContent);
+
+        cart.addItem(productName, quantityValue);
+
+        //Adaug cart in localStorage
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        alert(`You have added ${quantityValue} ${productName}(s) to your cart.`);
+    }
