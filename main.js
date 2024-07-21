@@ -11,16 +11,21 @@ import {
   createDetails,
   createSpan,
   createCart,
+  cartView,
 } from './js/elements';
 
 
 import './style.css'
+
 
 function Box(product) {
 
   const container = document.createElement('div');
   container.id = 'app';
   container.className = 'container';
+
+
+
 
   function createSectionFirst(product) {
     const section = document.createElement('section');
@@ -40,6 +45,7 @@ function Box(product) {
     const section = document.createElement('section');
     section.className = 'child second';
 
+    const cartViewContainer = cartView();
     const cart = createCart();
 
     const titleandPercent = createTitleAndPercent(product);
@@ -49,6 +55,7 @@ function Box(product) {
     const checkout = createCheckout(product);
     const details = createDetails();
 
+    section.appendChild(cartViewContainer);
     section.appendChild(cart);
     section.appendChild(titleandPercent);
     section.appendChild(availability);
@@ -130,7 +137,12 @@ function createSwiper(containerSelector, products) {
     },
     scrollbar: {
       el: '.swiper-scrollbar',
-    }
+    },
+    effect: 'coverflow',
+    fadeEffect: {
+      crossFade: true
+    },
+    speed: 800,
   });
 
   return swiper;
