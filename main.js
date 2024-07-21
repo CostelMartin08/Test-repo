@@ -149,7 +149,7 @@ function createSwiper(containerSelector, products) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const dataUrl = './mock-data.json';
+  const dataUrl = '/mock-data.json';
 
   fetch(dataUrl)
     .then(response => response.json())
