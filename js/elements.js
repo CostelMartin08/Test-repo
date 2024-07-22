@@ -72,6 +72,7 @@ export function createPrice(product) {
 }
 
 export function createAbout() {
+
     const about = document.createElement('div');
     about.className = 'about font-light';
 
@@ -126,7 +127,6 @@ export function createCheckout(product) {
 
     checkout.appendChild(count);
     checkout.appendChild(button);
-
 
 
     function updateQuantity(change) {

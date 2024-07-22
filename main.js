@@ -10,7 +10,7 @@ import {
   createCheckout,
   createDetails,
   createSpan,
- 
+
 } from './js/elements';
 
 import { createCart, cartView } from "./js/cart";
@@ -23,8 +23,6 @@ function Box(product) {
   const container = document.createElement('div');
   container.id = 'app';
   container.className = 'container';
-
-
 
 
   function createSectionFirst(product) {
@@ -101,7 +99,6 @@ function createSwiper(containerSelector, products) {
 
   swiperContainer.appendChild(swiperWrapper);
 
-
   const pagination = document.createElement('div');
   pagination.className = 'swiper-pagination';
   swiperContainer.appendChild(pagination);
@@ -122,7 +119,7 @@ function createSwiper(containerSelector, products) {
   container.innerHTML = '';
   container.appendChild(swiperContainer);
 
-
+  //Config. carusel Swiper
   const swiper = new Swiper('.swiper', {
     centeredSlides: true,
     spaceBetween: 20,
@@ -148,6 +145,7 @@ function createSwiper(containerSelector, products) {
   return swiper;
 }
 
+//Preluare date JSON
 document.addEventListener('DOMContentLoaded', () => {
   const dataUrl = '/mock-data.json';
 
