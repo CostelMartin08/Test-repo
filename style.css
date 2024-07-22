@@ -48,6 +48,7 @@ body {
 .container {
   display: grid;
   grid-template-columns: 1fr 2fr;
+
 }
 
 
@@ -84,7 +85,7 @@ body {
   padding-left: 0;
 }
 
-/*creeaza pentru cart potrivirea pe toate ecranele*/
+
 .cart {
   cursor: pointer;
   font-size: 20px;
@@ -132,7 +133,7 @@ body {
   flex-direction: column;
 }
 
-.line-through{
+.line-through {
   text-decoration-line: line-through;
 }
 
@@ -226,6 +227,7 @@ hr {
     grid-template-columns: 1fr;
     flex-direction: column;
     overflow: visible;
+    height: 100dvh;
 
   }
 
@@ -246,6 +248,11 @@ hr {
   .img {
     height: 100%;
     width: 100px;
+  }
+
+  .cart {
+    top: -34px;
+    right: 10px;
   }
 
   .font-size-sm {
@@ -277,6 +284,7 @@ hr {
 
   .container {
     grid-template-columns: 1fr;
+    height: 100dvh;
   }
 
   .child {
@@ -286,7 +294,9 @@ hr {
   }
 
   .first {
-    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
     background-color: white;
     text-align: center;
   }
@@ -354,32 +364,42 @@ hr {
 #cartView.visible {
   display: block;
   padding: 30px;
+  border-radius: 10px;
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 10;
-  height: 100dvh;
-  width: 100dvw;
+  height: 90dvh;
+  width: 90dvw;
   background-color: #abb8c3;
 
 }
 
 .exit {
+  cursor: pointer;
   display: flex;
   justify-content: end;
   font-size: 20px;
 }
+
 /* -------------------------------------------------------------------------- */
 /*                                    Table                                   */
 /* -------------------------------------------------------------------------- */
 
 #productContainer {
   display: flex;
+  flex-direction: column;
 
 }
 
 .product-table {
+
+  padding: 5px;
   width: 100%;
   margin-top: 40px;
 }
+
 
 .th-name {
   text-align: left;
@@ -395,6 +415,18 @@ hr {
   text-align: left;
 }
 
+.td-name-photo img {
+  border-radius: 5px;
+}
+
 .td-name-quantity {
+  font-size: 24px;
   text-align: center;
+}
+
+
+.empty-message {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 30px;
 }

@@ -10,10 +10,10 @@ import {
   createCheckout,
   createDetails,
   createSpan,
-  createCart,
-  cartView,
+ 
 } from './js/elements';
 
+import { createCart, cartView } from "./js/cart";
 
 import './style.css'
 
